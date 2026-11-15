@@ -90,9 +90,17 @@ const InterviewLiveStage = ({
             </div>
           </div>
 
-          <h2 className="mx-auto mt-3 max-w-4xl text-center text-xl font-semibold leading-relaxed md:text-2xl">
-            {question?.questionText || 'Loading question...'}
-          </h2>
+        {question?.isFollowUp && (
+  <p className="mt-2 text-center">
+    <span className="rounded-full bg-amber-500/20 px-3 py-1 text-xs font-semibold text-amber-200">
+      Follow-up question
+    </span>
+  </p>
+)}
+
+<h2 className="mx-auto mt-3 max-w-4xl text-center text-xl font-semibold leading-relaxed md:text-2xl">
+  {question?.questionText || 'Loading question...'}
+</h2>
         </div>
       </header>
       <main className="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-4 md:flex-row md:px-10">

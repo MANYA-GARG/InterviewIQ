@@ -11,6 +11,7 @@ import {
   Sparkles,
   Upload,
   User,
+  CalendarCheck,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppStore } from '../../store/appStore';
@@ -21,6 +22,7 @@ const navItems = [
   { label: 'Upload Resume', to: '/upload', icon: Upload },
   { label: 'Analysis', to: '/analysis', icon: FileText },
   { label: 'Resume Builder', to: '/resume-builder', icon: Sparkles },
+    { label: 'Study Plan', to: '/study-plan', icon: CalendarCheck },
   { label: 'Preparation Hub', to: '/learn', icon: GraduationCap },
   { label: 'Reports', to: '/reports', icon: BarChart3 },
   { label: 'Profile', to: '/profile', icon: User },
@@ -36,6 +38,7 @@ const routeMatchers = {
   '/learn': (path) => path === '/learn' || path === '/dsa',
   '/reports': (path) => path === '/reports' || path === '/progress',
   '/profile': (path) => path === '/profile',
+    '/study-plan': (path) => path === '/study-plan',
 };
 
 const Sidebar = ({ sidebarOpen, onClose }) => {

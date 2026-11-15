@@ -6,6 +6,8 @@ import {
   parseGroqJsonContent,
 } from './groqChat.js';
 
+import AppError from '../utils/AppError.js';
+
 class AIService {
   // Generic retry with exponential backoff AND timeout
   async _retry(fn, retries = 3, baseDelay = 500, timeout = 15000) {

@@ -19,6 +19,7 @@ import testRoutes from "./src/routes/test.routes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import errorHandler from "./src/middlewares/error.middleware.js";
 import resumeBuilderRoutes from "./src/routes/resumeBuilder.routes.js";
+import coachRoutes from "./src/routes/coach.routes.js";
 
 
 
@@ -105,6 +106,7 @@ app.use("/api/evaluations", evaluationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/analysis", analysisRoutes);
 app.use("/api/resume-builder", resumeBuilderRoutes);
+app.use("/api/coach", coachRoutes);
 
 app.use("/api/ai", aiRoutes);
 

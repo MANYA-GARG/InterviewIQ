@@ -1,6 +1,8 @@
 import resumeService from '../services/resume.service.js';
+import Resume from '../models/Resume.js';
+import { runAtsChecks } from '../utils/atsChecker.js';
 
-export const uploadResume = async (req, res, next) => {
+export const uploadResume = async (req, res) => {
   try {
     console.log('[resume.upload] request received', {
       userId: req.user?._id?.toString?.(),
@@ -109,6 +111,27 @@ export const matchResume = async (req, res) => {
     const match = await resumeService.matchToTarget(req.params.id, req.user._id, req.body || {});
     res.status(200).json({ success: true, data: { match } });
   } catch (error) {
-    res.status(error.statusCode || 500).json({ success: false, message: error.message || 'Match failed' });
+    res.status(error.statusCode || 500).json({
+      success: false,
+      message: error.message || 'Match failed',
+    });
+  }
+};
+
+export const atsCheck = async (req, res) => {
+  try {
+    const resume = await Resume.findOne({ _id: req.params.id, user: req.user._id });
+    if (!resume) {
+      return res.status(404).json({ success: false, message: 'Resume not found' });
+    }
+    const ats = runAtsChecks(resume.extractedText);
+    res.status(200).json({ success: true, data: { ats } });
+  } catch (error) {
+    console.error('ATS check error:', error);
+    const notFound = error.name === 'CastError';
+    res.status(notFound ? 404 : 500).json({
+      success: false,
+      message: notFound ? 'Resume not found' : error.message || 'ATS check failed',
+    });
   }
 };

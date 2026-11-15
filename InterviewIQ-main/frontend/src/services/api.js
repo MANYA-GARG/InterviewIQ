@@ -263,3 +263,17 @@ export const resumeBuilderService = {
   summary: async (data) => normalize((await api.post('/resume-builder/ai/summary', data)).data),
   tailor: async (data) => normalize((await api.post('/resume-builder/ai/tailor', data)).data),
 };
+export const adaptiveService = {
+  followUp: async (interviewId, questionId) =>
+    normalize((await api.post(`/interviews/${interviewId}/follow-up`, { questionId })).data),
+};
+
+export const coachService = {
+  generate: async (data) => normalize((await api.post('/coach/plan', data)).data),
+  latest: async () => normalize((await api.get('/coach/plan/latest')).data),
+  toggleTask: async (id, data) => normalize((await api.put(`/coach/plan/${id}/task`, data)).data),
+};
+
+export const atsService = {
+  check: async (resumeId) => normalize((await api.get(`/resumes/${resumeId}/ats-check`)).data),
+};

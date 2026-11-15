@@ -10,6 +10,7 @@ import {
   getUserInterviews,
   deleteInterview
 } from '../controllers/interview.controller.js';
+import { followUp } from '../controllers/adaptive.controller.js';
 import { protect } from '../middlewares/auth.middleware.js';
 import { uploadAudio } from '../middlewares/upload.middleware.js';
 import { validate } from '../middlewares/validate.middleware.js';
@@ -36,6 +37,7 @@ router.post('/', validate(createInterviewSchema), createInterview);
 router.get('/', getUserInterviews);
 router.get('/:id', getInterview);
 router.post('/:id/start', startInterview);
+router.post('/:id/follow-up', followUp);
 router.post('/:id/complete', completeInterview);
 router.post('/:id/activity', logSuspiciousActivity);
 router.delete('/:id', deleteInterview);

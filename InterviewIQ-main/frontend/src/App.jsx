@@ -23,6 +23,7 @@ const Progress = lazy(() => import('./pages/Progress'));
 const Profile = lazy(() => import('./pages/Profile'));
 const PreparationHub = lazy(() => import('./pages/PreparationHub'));
 const ResumeBuilder = lazy(() => import('./pages/ResumeBuilder'));
+const StudyPlan = lazy(() => import('./pages/StudyPlan'));
 
 const RouteFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -124,6 +125,7 @@ function App() {
                 <Route path="/learn" element={<PreparationHub />} />
                 <Route path="/dsa" element={<PreparationHub />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/study-plan" element={<StudyPlan />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/" replace />} />

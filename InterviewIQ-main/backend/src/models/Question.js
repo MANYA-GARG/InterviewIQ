@@ -26,14 +26,27 @@ const questionSchema = new mongoose.Schema(
       default: 'medium',
     },
     expectedAnswer: String,
+    isFollowUp: {
+      type: Boolean,
+      default: false,
+    },
+    parentQuestion: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Question',
+      default: null,
+    },
+    followUpReason: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,
   }
 );
 
-// Index for interview queries
 questionSchema.index({ interview: 1, questionNumber: 1 });
+questionSchema.index({ parentQuestion: 1 });
 
 const Question = mongoose.model('Question', questionSchema);
 

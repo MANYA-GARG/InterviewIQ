@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { Upload, FileText, Trash2 } from 'lucide-react';
 import { useAppStore } from '../store/appStore';
 import ResumeMatchCard from '../components/common/ResumeMatchCard';
-
+import AtsCheckerCard from '../components/common/AtsCheckerCard';
 
 
 const Resumes = () => {
@@ -325,6 +325,7 @@ const Resumes = () => {
         )}
 
 <ResumeMatchCard resumeId={resumes[0]?._id} />
+<AtsCheckerCard resumeId={resumes[0]?._id} />
         {analysisResult && (() => {
           const detectedSkills = analysisResult.detectedSkills ?? analysisResult.skillsFound ?? [];
           const categorizedSkills = categorizeSkills(detectedSkills);

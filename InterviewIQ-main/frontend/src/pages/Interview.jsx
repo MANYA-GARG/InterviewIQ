@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { interviewService } from '../services/api';
+import { interviewService, adaptiveService } from '../services/api';
 import InterviewJoinScreen from '../components/interview/InterviewJoinScreen';
 import InterviewLiveStage from '../components/interview/InterviewLiveStage';
 import InterviewFinalReview from '../components/interview/InterviewFinalReview';
@@ -483,6 +483,7 @@ const Interview = () => {
 
     const questionId = currentQuestion._id;
     const finalAnswer = (currentAnswer || liveTranscript || '').toString().trim();
+    let nextQuestions = questions;
 
     setStatus('waiting');
     setVoiceState(VOICE_STATES.PROCESSING);
@@ -490,7 +491,6 @@ const Interview = () => {
 
     try {
       if (finalAnswer) {
-        // Save whatever the candidate typed, even when the timer ran out
         setStatus('processing');
         try {
           await persistAnswer(questionId, finalAnswer, questionElapsed);
@@ -505,6 +505,31 @@ const Interview = () => {
         if (autoSkipped) {
           toast('Time is up. Your answer was saved.', { id: 'time-up' });
         }
+
+        // Adaptive follow-up: the interviewer decides whether to probe deeper.
+        // Any failure here is ignored so the interview never gets blocked.
+        if (!currentQuestion.isFollowUp) {
+          try {
+            const res = await adaptiveService.followUp(id, questionId);
+            const decision = res.data?.decision;
+            const followQ = decision?.question;
+            if (
+              decision?.action === 'follow_up' &&
+              followQ?._id &&
+              !questions.some((q) => q._id === followQ._id)
+            ) {
+              nextQuestions = [
+                ...questions.slice(0, currentIndex + 1),
+                followQ,
+                ...questions.slice(currentIndex + 1),
+              ];
+              setQuestions(nextQuestions);
+              toast('Follow-up question coming up', { id: 'follow-up', icon: '💬' });
+            }
+          } catch (e) {
+            console.warn('[adaptive] follow-up skipped:', e?.message);
+          }
+        }
       } else {
         setSkipped((prev) => (prev.includes(questionId) ? prev : [...prev, questionId]));
         if (autoSkipped) {
@@ -514,7 +539,7 @@ const Interview = () => {
 
       stopSpeechRecognition();
 
-      if (currentIndex >= questions.length - 1) {
+      if (currentIndex >= nextQuestions.length - 1) {
         setInterviewPhase(INTERVIEW_PHASES.COMPLETED);
         setStatus('completed');
       } else {
@@ -533,11 +558,12 @@ const Interview = () => {
     currentAnswer,
     currentIndex,
     currentQuestion,
+    id,
     liveTranscript,
     moveToIndex,
     persistAnswer,
     questionElapsed,
-    questions.length,
+    questions,
     stopSpeechRecognition,
     submitting,
   ]);
