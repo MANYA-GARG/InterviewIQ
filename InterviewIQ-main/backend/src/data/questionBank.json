@@ -1,0 +1,118 @@
+{
+  "Frontend": {
+    "fresher": [
+      {
+        "questionText": "What is the Virtual DOM in React and why is it useful?",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "Describe virtual DOM as an in-memory representation of the DOM, helps with efficient updates by diffing and batching DOM operations.",
+        "expectedKeywords": ["virtual dom", "diff", "react", "performance", "reconciliation"]
+      },
+      {
+        "questionText": "Explain the role of props and state in React components.",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "Props are read-only inputs passed to components; state is internal and mutable used for dynamic data.",
+        "expectedKeywords": ["props", "state", "component", "immutable", "react"]
+      }
+    ],
+    "junior": [
+      {
+        "questionText": "How do you optimize React application performance?",
+        "category": "technical",
+        "difficulty": "medium",
+        "expectedAnswer": "Discuss memoization, code-splitting, lazy loading, avoiding unnecessary renders, keys in lists.",
+        "expectedKeywords": ["memo", "code-splitting", "lazy", "render", "keys"]
+      }
+    ],
+    "experienced": [
+      {
+        "questionText": "Design a component architecture for a large-scale React application.",
+        "category": "scenario-based",
+        "difficulty": "hard",
+        "expectedAnswer": "Discuss separation of concerns, state management, caching, performance, testing, and deployment.",
+        "expectedKeywords": ["state management", "performance", "testing", "scalability", "caching"]
+      }
+    ]
+  },
+  "Backend": {
+    "fresher": [
+      {
+        "questionText": "What is REST and how does it differ from GraphQL?",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "REST is an architectural style using HTTP verbs and resources; GraphQL is a query language allowing clients to request specific fields.",
+        "expectedKeywords": ["rest", "graphql", "http", "endpoints", "query"]
+      }
+    ],
+    "junior": [
+      {
+        "questionText": "How do you design a scalable API for high traffic?",
+        "category": "technical",
+        "difficulty": "medium",
+        "expectedAnswer": "Talk about load balancing, caching, rate limiting, database sharding, horizontal scaling.",
+        "expectedKeywords": ["load balancing", "caching", "sharding", "scaling", "rate limit"]
+      }
+    ],
+    "experienced": [
+      {
+        "questionText": "Explain designing a fault-tolerant microservices architecture.",
+        "category": "scenario-based",
+        "difficulty": "hard",
+        "expectedAnswer": "Discuss service boundaries, circuit breakers, idempotency, retries, monitoring, and deployment strategies.",
+        "expectedKeywords": ["microservices", "circuit breaker", "idempotency", "monitoring", "retries"]
+      }
+    ]
+  },
+  "Full Stack": {
+    "fresher": [
+      {
+        "questionText": "Explain the request lifecycle from browser to database and back.",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "Browser makes HTTP request; server processes, queries DB, returns response; client renders update.",
+        "expectedKeywords": ["http", "request", "server", "database", "response"]
+      }
+    ],
+    "junior": [
+      {
+        "questionText": "How would you debug a production issue affecting both frontend and backend?",
+        "category": "behavioral",
+        "difficulty": "medium",
+        "expectedAnswer": "Talk about logs, reproducing locally, monitoring, rollback, hotfix, communication.",
+        "expectedKeywords": ["logs", "monitoring", "rollback", "hotfix", "communication"]
+      }
+    ],
+    "experienced": [
+      {
+        "questionText": "Design an end-to-end feature with considerations for performance, security, and deployment.",
+        "category": "scenario-based",
+        "difficulty": "hard",
+        "expectedAnswer": "Discuss API design, caching, auth, data modeling, CI/CD, observability.",
+        "expectedKeywords": ["auth", "caching", "ci/cd", "observability", "security"]
+      }
+    ]
+  },
+  "Java": {
+    "fresher": [
+      {
+        "questionText": "What is the difference between JDK and JRE?",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "JDK includes tools to develop Java apps; JRE runs Java apps and includes JVM.",
+        "expectedKeywords": ["jdk", "jre", "jvm", "runtime", "development"]
+      }
+    ]
+  },
+  "Python": {
+    "fresher": [
+      {
+        "questionText": "Explain the difference between list and tuple in Python.",
+        "category": "technical",
+        "difficulty": "easy",
+        "expectedAnswer": "Lists are mutable, tuples are immutable; tuples can be used as dict keys.",
+        "expectedKeywords": ["mutable", "immutable", "list", "tuple"]
+      }
+    ]
+  }
+}
