@@ -24,6 +24,8 @@ const Profile = lazy(() => import('./pages/Profile'));
 const PreparationHub = lazy(() => import('./pages/PreparationHub'));
 const ResumeBuilder = lazy(() => import('./pages/ResumeBuilder'));
 const StudyPlan = lazy(() => import('./pages/StudyPlan'));
+const Assessment = lazy(() => import('./pages/Assessment'));
+const RateAnswers = lazy(() => import('./pages/RateAnswers'));
 
 const RouteFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -126,6 +128,8 @@ function App() {
                 <Route path="/dsa" element={<PreparationHub />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/study-plan" element={<StudyPlan />} />
+                <Route path="/assessment" element={<Assessment />} />
+                <Route path="/rate-answers" element={<RateAnswers />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/" replace />} />

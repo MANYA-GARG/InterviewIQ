@@ -3,15 +3,16 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   BarChart3,
   Bot,
+  CalendarCheck,
   FileText,
   GraduationCap,
   LayoutDashboard,
   LogOut,
   PanelLeft,
   Sparkles,
+  Target,
   Upload,
   User,
-  CalendarCheck,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppStore } from '../../store/appStore';
@@ -19,10 +20,11 @@ import { useAppStore } from '../../store/appStore';
 const navItems = [
   { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard },
   { label: 'Start Interview', to: '/new-interview', icon: Bot },
+  { label: 'Adaptive Assessment', to: '/assessment', icon: Target },
   { label: 'Upload Resume', to: '/upload', icon: Upload },
   { label: 'Analysis', to: '/analysis', icon: FileText },
   { label: 'Resume Builder', to: '/resume-builder', icon: Sparkles },
-    { label: 'Study Plan', to: '/study-plan', icon: CalendarCheck },
+  { label: 'Study Plan', to: '/study-plan', icon: CalendarCheck },
   { label: 'Preparation Hub', to: '/learn', icon: GraduationCap },
   { label: 'Reports', to: '/reports', icon: BarChart3 },
   { label: 'Profile', to: '/profile', icon: User },
@@ -32,13 +34,14 @@ const routeMatchers = {
   '/dashboard': (path) => path === '/dashboard',
   '/new-interview': (path) =>
     path === '/new-interview' || path.startsWith('/interview/') || path.startsWith('/evaluation/'),
+  '/assessment': (path) => path === '/assessment',
   '/upload': (path) => path === '/upload' || path === '/resumes',
   '/analysis': (path) => path === '/analysis',
   '/resume-builder': (path) => path === '/resume-builder',
+  '/study-plan': (path) => path === '/study-plan',
   '/learn': (path) => path === '/learn' || path === '/dsa',
   '/reports': (path) => path === '/reports' || path === '/progress',
   '/profile': (path) => path === '/profile',
-    '/study-plan': (path) => path === '/study-plan',
 };
 
 const Sidebar = ({ sidebarOpen, onClose }) => {
@@ -91,7 +94,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 border-r border-slate-200 bg-white transition-transform duration-300 pt-16 lg:translate-x-0 print:hidden ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-slate-200 bg-white pt-16 transition-transform duration-300 lg:translate-x-0 print:hidden ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -102,7 +105,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
           <p className="text-xs font-bold uppercase tracking-wider text-slate-600">Main Navigation</p>
         </div>
 
-        <nav className="space-y-1.5 px-4 py-6">
+        <nav className="space-y-1 px-4 py-4">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -114,7 +117,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
           })}
         </nav>
 
-        <div className="absolute inset-x-4 bottom-4">
+        <div className="mx-4 mb-4 mt-2">
           <div className="mb-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
             <p className="truncate text-xs text-slate-500">Signed in as</p>
             <p className="truncate text-sm font-semibold text-slate-800">

@@ -4,8 +4,10 @@ import mongoose from 'mongoose';
 import connectDB from '../config/db.js';
 import RagChunk from '../src/models/RagChunk.js';
 import { chunkText, embedTexts } from '../src/services/rag.service.js';
-
-const docs = JSON.parse(fs.readFileSync(new URL('../src/data/ragCorpus.json', import.meta.url), 'utf8'));
+const files = ['ragCorpus.json', 'ragCorpus.extra.json'];
+const docs = files.flatMap((f) =>
+  JSON.parse(fs.readFileSync(new URL(`../src/data/${f}`, import.meta.url), 'utf8'))
+);
 const bad = docs.filter((d) => !d.id || !d.topic || !d.text);
 if (bad.length) {
   console.error('Invalid docs:', bad.map((d) => d.id));

@@ -4,9 +4,15 @@ import mongoose from 'mongoose';
 import connectDB from '../config/db.js';
 import BankQuestion from '../src/models/BankQuestion.js';
 
-const file = new URL('../src/data/assessmentBank.json', import.meta.url);
-const items = JSON.parse(fs.readFileSync(file, 'utf8'));
-
+const files = ['assessmentBank.json', 'assessmentBank.extra.json'];
+const items = files.flatMap((f) =>
+  JSON.parse(fs.readFileSync(new URL(`../src/data/${f}`, import.meta.url), 'utf8'))
+);
+const seen = new Set();
+for (const q of items) {
+  if (seen.has(q.qid)) { console.error('Duplicate qid:', q.qid); process.exit(1); }
+  seen.add(q.qid);
+}
 const bad = items.filter(
   (q) =>
     !q.qid || !q.role || !q.topic || !q.question ||

@@ -1,0 +1,38 @@
+{
+  "coverage": {
+    "rateableAnswers": 0,
+    "ratedAnswers": 0,
+    "ratedByTwoPlus": 0,
+    "raters": 0
+  },
+  "overall": {
+    "n": 0,
+    "spearman": null,
+    "ci95": null,
+    "mae": null
+  },
+  "byDimension": {
+    "correctness": {
+      "n": 0,
+      "spearman": null
+    },
+    "depth": {
+      "n": 0,
+      "spearman": null
+    },
+    "completeness": {
+      "n": 0,
+      "spearman": null
+    },
+    "communication": {
+      "n": 0,
+      "spearman": null
+    }
+  },
+  "interRater": {
+    "pairs": 0,
+    "meanSpearman": null,
+    "meanKappa": null,
+    "detail": []
+  }
+}

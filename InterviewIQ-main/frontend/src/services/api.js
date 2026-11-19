@@ -277,3 +277,19 @@ export const coachService = {
 export const atsService = {
   check: async (resumeId) => normalize((await api.get(`/resumes/${resumeId}/ats-check`)).data),
 };
+
+export const assessmentService = {
+  roles: async () => normalize((await api.get('/assessment/roles')).data),
+  start: async (data) => normalize((await api.post('/assessment/sessions', data)).data),
+  answer: async (id, answer) =>
+    normalize((await api.post(`/assessment/sessions/${id}/answer`, { answer })).data),
+  get: async (id) => normalize((await api.get(`/assessment/sessions/${id}`)).data),
+  abilities: async () => normalize((await api.get('/assessment/abilities')).data),
+    plan: async (id) => normalize((await api.get(`/assessment/sessions/${id}/plan`)).data),
+};
+
+export const evidenceService = {
+  next: async (params) => normalize((await api.get('/evidence/next', { params })).data),
+  rate: async (data) => normalize((await api.post('/evidence/rate', data)).data),
+  agreement: async () => normalize((await api.get('/evidence/agreement')).data),
+};
