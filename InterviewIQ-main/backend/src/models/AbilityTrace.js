@@ -6,6 +6,7 @@ const abilityTraceSchema = new mongoose.Schema(
     session: { type: mongoose.Schema.Types.ObjectId, ref: 'AssessmentSession', required: true, index: true },
     step: Number,
     question: { type: mongoose.Schema.Types.ObjectId, ref: 'BankQuestion' },
+        latencyMs: { type: Number, default: null },
     qid: String,
     topic: String,
     difficulty: Number,

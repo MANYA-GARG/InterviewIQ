@@ -1,0 +1,127 @@
+[
+  {
+    "query": "Why can a timer callback execute later than expected when the Node.js event loop is busy?",
+    "topic": "nodejs",
+    "relevant": ["node-event-loop"]
+  },
+  {
+    "query": "How does Node.js handle asynchronous callbacks through its event loop?",
+    "topic": "nodejs",
+    "relevant": ["node-event-loop"]
+  },
+  {
+    "query": "How do streams help process large files without loading everything into memory?",
+    "topic": "nodejs",
+    "relevant": ["node-streams"]
+  },
+  {
+    "query": "Why can CPU-heavy operations slow down a Node.js server and how can memory leaks be identified?",
+    "topic": "nodejs",
+    "relevant": ["node-cpu-memory"]
+  },
+  {
+    "query": "How does a database index improve query performance and when can it become inefficient?",
+    "topic": "databases",
+    "relevant": ["db-indexing"]
+  },
+  {
+    "query": "How can I analyze a slow database query using its query execution plan?",
+    "topic": "databases",
+    "relevant": ["db-indexing"]
+  },
+  {
+    "query": "What guarantees do ACID transactions provide when multiple database operations are involved?",
+    "topic": "databases",
+    "relevant": ["db-acid"]
+  },
+  {
+    "query": "How does sharding distribute database data and what makes choosing a shard key important?",
+    "topic": "databases",
+    "relevant": ["db-sharding"]
+  },
+  {
+    "query": "How can a REST API avoid creating duplicate orders when a client retries a request?",
+    "topic": "api-design",
+    "relevant": ["api-rest-idempotency"]
+  },
+  {
+    "query": "Which HTTP methods are generally idempotent and why does that matter for API retries?",
+    "topic": "api-design",
+    "relevant": ["api-rest-idempotency"]
+  },
+  {
+    "query": "How can JWT tokens be used to authenticate users in a web application?",
+    "topic": "api-design",
+    "relevant": ["api-jwt"]
+  },
+  {
+    "query": "How can an API limit repeated requests from the same user or IP address?",
+    "topic": "api-design",
+    "relevant": ["api-rate-limit"]
+  },
+  {
+    "query": "How can a web service handle increasing traffic using load balancers and horizontal scaling?",
+    "topic": "system-design",
+    "relevant": ["sd-scaling-lb"]
+  },
+  {
+    "query": "How does caching reduce server load and what tradeoffs are involved in distributed systems?",
+    "topic": "system-design",
+    "relevant": ["sd-cache-cap"]
+  },
+  {
+    "query": "How would you design a URL shortening service using caching and scalable components?",
+    "topic": "system-design",
+    "relevant": ["sd-cache-cap"]
+  },
+  {
+    "query": "What is the difference between authentication and authorization and how should passwords be stored securely?",
+    "topic": "security",
+    "relevant": ["sec-auth-passwords"]
+  },
+  {
+    "query": "Why should passwords be hashed instead of stored as plain text and what makes a password hash secure?",
+    "topic": "security",
+    "relevant": ["sec-auth-passwords"]
+  },
+  {
+    "query": "How do SQL injection and cross-site request forgery attacks work and how can applications defend against them?",
+    "topic": "security",
+    "relevant": ["sec-injection-csrf"]
+  },
+  {
+    "query": "What is the difference between unit testing and integration testing when validating backend APIs?",
+    "topic": "testing",
+    "relevant": ["test-basics"]
+  },
+  {
+    "query": "Why should tests be organized into different levels and how can flaky tests affect a development pipeline?",
+    "topic": "testing",
+    "relevant": ["test-pyramid-flaky"]
+  },
+  {
+    "query": "How can Docker containers manage application dependencies and environment-specific configuration?",
+    "topic": "devops",
+    "relevant": ["ops-docker-config"]
+  },
+  {
+    "query": "How can a deployment be performed without downtime and what steps are useful during incident response?",
+    "topic": "devops",
+    "relevant": ["ops-deploy-incident"]
+  },
+  {
+    "query": "How do JavaScript closures allow an inner function to retain access to variables from its outer scope?",
+    "topic": "javascript",
+    "relevant": ["js-basics-closures"]
+  },
+  {
+    "query": "What happens when promises are resolved and microtasks are processed in JavaScript?",
+    "topic": "javascript",
+    "relevant": ["js-async-eventloop"]
+  },
+  {
+    "query": "How do props, state, effects and the Virtual DOM relate to React component rendering?",
+    "topic": "react",
+    "relevant": ["react-core"]
+  }
+]

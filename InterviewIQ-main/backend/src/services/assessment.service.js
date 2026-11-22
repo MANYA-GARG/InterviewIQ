@@ -78,6 +78,7 @@ class AssessmentService {
   }
 
   async _score(userId, claimed, answerText) {
+    const t0 = Date.now();
     const question = await BankQuestion.findById(claimed.current);
     if (!question) throw new AppError('Question not found', 404);
 
@@ -86,10 +87,10 @@ class AssessmentService {
     let retrievedIds = [];
     if (claimed.useRag !== false) {
       try {
-        const found = await rag.retrieve(
-          `${question.question} ${(question.keyPoints || []).join(' ')}`,
-          { topic: question.topic, k: 3 }
-        );
+       const found = await rag.retrieve(
+  question.question,
+  { topic: question.topic, k: 3 }
+);
         chunks = found.map((c) => c.text);
         retrievedIds = found.map((c) => c.docId);
       } catch (e) {
@@ -129,6 +130,7 @@ class AssessmentService {
       seBefore: r3(before.se),
       seAfter: r3(state.se),
       method: result.method,
+          latencyMs: Date.now() - t0,
       answerText: String(answerText || '').slice(0, 4000),
       rubric: {
         correctness: result.correctness,

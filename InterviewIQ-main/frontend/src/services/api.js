@@ -293,3 +293,13 @@ export const evidenceService = {
   rate: async (data) => normalize((await api.post('/evidence/rate', data)).data),
   agreement: async () => normalize((await api.get('/evidence/agreement')).data),
 };
+
+export const adminService = {
+  overview: async () => normalize((await api.get('/admin/overview')).data),
+  users: async (params) => normalize((await api.get('/admin/users', { params })).data),
+  user: async (id) => normalize((await api.get(`/admin/users/${id}`)).data),
+  setStatus: async (id, status) => normalize((await api.put(`/admin/users/${id}/status`, { status })).data),
+  setRole: async (id, role) => normalize((await api.put(`/admin/users/${id}/role`, { role })).data),
+  remove: async (id) => normalize((await api.delete(`/admin/users/${id}`)).data),
+  exportCsv: async () => (await api.get('/admin/users/export', { responseType: 'blob' })).data,
+};

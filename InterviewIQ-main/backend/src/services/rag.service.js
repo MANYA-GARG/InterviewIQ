@@ -18,6 +18,31 @@ export function chunkText(text, size = 220, step = 180) {
   }
   return out;
 }
+// Sentence-aware chunking with word overlap
+export function chunkSentences(text, target = 250, overlap = 50, minWords = 40) {
+  const sents = String(text).replace(/\s+/g, ' ').split(/(?<=[.!?])\s+/).filter(Boolean);
+  const chunks = [];
+  let cur = [];
+  let count = 0;
+  for (const s of sents) {
+    const w = s.split(' ').length;
+    if (count + w > target && cur.length) {
+      chunks.push(cur.join(' '));
+      const tail = [];
+      let t = 0;
+      for (let i = cur.length - 1; i >= 0 && t < overlap; i -= 1) {
+        tail.unshift(cur[i]);
+        t += cur[i].split(' ').length;
+      }
+      cur = tail;
+      count = t;
+    }
+    cur.push(s);
+    count += w;
+  }
+  if (cur.length && (count >= minWords || !chunks.length)) chunks.push(cur.join(' '));
+  return chunks;
+}
 
 // ---------- embeddings (all-MiniLM-L6-v2 via ONNX) ----------
 let extractor; // undefined = not tried, null = unavailable
@@ -93,6 +118,46 @@ async function load() {
   return cache;
 }
 
+async function denseRank(query, pool) {
+  const qv = (await embedTexts([query]))?.[0];
+  if (!qv) return [];
+
+  if (process.env.RAG_VECTOR === 'atlas') {
+    try {
+      const topic = pool.length ? pool[0].topic : undefined;
+      const sameTopic = pool.every((c) => c.topic === topic);
+      const rows = await RagChunk.aggregate([
+        {
+          $vectorSearch: {
+            index: 'rag_vector_index',
+            path: 'embedding',
+            queryVector: qv,
+            numCandidates: 100,
+            limit: 20,
+            ...(sameTopic && topic ? { filter: { topic } } : {}),
+          },
+        },
+        { $project: { docId: 1, topic: 1, title: 1, text: 1, score: { $meta: 'vectorSearchScore' } } },
+      ]);
+      const byId = new Map(pool.map((c) => [c.id, c]));
+      return rows.map((r) => ({
+        d: byId.get(String(r._id)) || {
+          id: String(r._id), docId: r.docId, topic: r.topic, title: r.title, text: r.text,
+        },
+        score: r.score,
+      }));
+    } catch (e) {
+      console.error('[rag] Atlas vector search failed, using in-memory scan:', e?.message || e);
+    }
+  }
+
+  return pool
+    .filter((c) => c.embedding.length)
+    .map((d) => ({ d, score: dot(qv, d.embedding) }))
+    .filter((x) => x.score > 0.2)
+    .sort((a, b) => b.score - a.score);
+}
+
 const RRF_K = 60;
 
 class RagService {
@@ -105,25 +170,14 @@ class RagService {
   }
 
   /** Hybrid retrieval: BM25 + dense, merged with reciprocal rank fusion. */
-  async retrieve(query, { topic, k = 4 } = {}) {
+    async retrieve(query, { topic, k = 4, mode = 'hybrid' } = {}) {
     const all = await load();
     let pool = topic ? all.filter((c) => c.topic === topic) : all;
     if (!pool.length) pool = all;
     if (!pool.length) return [];
 
-    const lexical = bm25Rank(tokenize(query), pool);
-
-    let dense = [];
-    const withVec = pool.filter((c) => c.embedding.length);
-    if (withVec.length) {
-      const qv = (await embedTexts([query]))?.[0];
-      if (qv) {
-        dense = withVec
-          .map((d) => ({ d, score: dot(qv, d.embedding) }))
-          .filter((x) => x.score > 0.2)
-          .sort((a, b) => b.score - a.score);
-      }
-    }
+    const lexical = mode === 'dense' ? [] : bm25Rank(tokenize(query), pool);
+    const dense = mode === 'bm25' ? [] : await denseRank(query, pool);
 
     const fused = new Map();
     const add = (list, key) =>

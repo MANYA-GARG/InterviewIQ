@@ -28,8 +28,8 @@ class UserService {
     }
 
     // Update user
-    Object.keys(updateData).forEach((key) => {
-      user[key] = updateData[key];
+        ['name', 'email'].forEach((key) => {
+      if (updateData[key] !== undefined) user[key] = updateData[key];
     });
 
     await user.save();

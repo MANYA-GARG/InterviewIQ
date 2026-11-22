@@ -23,9 +23,10 @@ const userSchema = new mongoose.Schema({
   },
   accountStatus: {
     type: String,
-    enum: ['PENDING', 'ACTIVE'],
+    enum: ['PENDING', 'ACTIVE', 'SUSPENDED'],
     default: 'PENDING'
   },
+   lastLoginAt: { type: Date },
   otp: {
     type: String
   },

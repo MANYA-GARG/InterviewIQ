@@ -1,23 +1,15 @@
 import { verifyAccessToken } from '../utils/jwt.js';
 import User from '../models/User.js';
+import AppError from '../utils/AppError.js';
 
-export const protect = async (req, res, next) => {
+export const protect = async (req, res, next) =>  {
   try {
     const authHeader = req.headers.authorization;
-    console.log('Authorization header:', authHeader);
 
-    if (!authHeader) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         success: false,
         message: 'Token missing',
-        error: false
-      });
-    }
-
-    if (!authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid token',
         error: false
       });
     }
@@ -33,11 +25,7 @@ export const protect = async (req, res, next) => {
     }
 
     try {
-      // Verify token
       const decoded = verifyAccessToken(token);
-      console.log('Decoded user:', decoded);
-
-      // Get user from database
       const user = await User.findById(decoded.userId).select('-password');
 
       if (!user) {
@@ -56,19 +44,28 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      // Attach user to request
+      if (user.accountStatus === 'SUSPENDED') {
+        return res.status(403).json({
+          success: false,
+          message: 'Your account has been suspended. Contact the administrator.',
+          error: false
+        });
+      }
+
       req.user = user;
       next();
+
     } catch (tokenError) {
-      console.error('Token verification error:', tokenError.message);
       return res.status(401).json({
         success: false,
         message: 'Invalid token',
         error: false
       });
     }
+
   } catch (error) {
     console.error('Auth middleware error:', error);
+
     return res.status(500).json({
       success: false,
       message: 'Authentication error. Please try again.',
@@ -77,13 +74,12 @@ export const protect = async (req, res, next) => {
   }
 };
 
-export const restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
-    }
-    next();
-  };
+export const restrictTo = (...roles) => (req, res, next) => {
+  if (!req.user || !roles.includes(req.user.role)) {
+    return next(
+      new AppError('You do not have permission to perform this action', 403)
+    );
+  }
+
+  next();
 };

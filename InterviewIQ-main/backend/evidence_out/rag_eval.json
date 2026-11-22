@@ -1,0 +1,23 @@
+[
+  {
+    "mode": "bm25",
+    "queries": 25,
+    "hit@3": 0.96,
+    "recall@3": 0.96,
+    "MRR": 0.94
+  },
+  {
+    "mode": "dense",
+    "queries": 25,
+    "hit@3": 1,
+    "recall@3": 1,
+    "MRR": 1
+  },
+  {
+    "mode": "hybrid",
+    "queries": 25,
+    "hit@3": 1,
+    "recall@3": 1,
+    "MRR": 0.973
+  }
+]

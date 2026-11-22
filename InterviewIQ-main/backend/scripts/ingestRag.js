@@ -15,7 +15,7 @@ if (bad.length) {
 }
 
 await connectDB();
-await RagChunk.deleteMany({});
+await RagChunk.deleteMany({ sourceType: { $ne: 'pdf' } });
 
 let total = 0;
 let embedded = 0;

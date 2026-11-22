@@ -22,6 +22,7 @@ import resumeBuilderRoutes from "./src/routes/resumeBuilder.routes.js";
 import coachRoutes from "./src/routes/coach.routes.js";
 import assessmentRoutes from "./src/routes/assessment.routes.js";
 import evidenceRoutes from "./src/routes/evidence.routes.js";
+import adminRoutes from "./src/routes/admin.routes.js";
 
 
 const warnIfUnset = (label, value) => {
@@ -112,6 +113,8 @@ app.use("/api/assessment", assessmentRoutes);
 
 app.use("/api/ai", aiRoutes);
 app.use("/api/evidence", evidenceRoutes);
+
+app.use("/api/admin", adminRoutes);
 
 // Mount test routes ONLY in development to avoid accidental exposure
 if (process.env.NODE_ENV === 'development') {

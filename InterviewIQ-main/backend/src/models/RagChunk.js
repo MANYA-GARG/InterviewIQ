@@ -6,7 +6,10 @@ const ragChunkSchema = new mongoose.Schema(
     chunkIndex: { type: Number, default: 0 },
     topic: { type: String, required: true, index: true },
     title: { type: String, default: '' },
+        source: { type: String, default: '' },
+    sourceType: { type: String, default: 'note' },
     text: { type: String, required: true },
+  
     embedding: { type: [Number], default: [] },
   },
   { timestamps: true, collection: 'rag_chunks' }

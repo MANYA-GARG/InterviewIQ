@@ -1,0 +1,30 @@
+Table 5.1
+n = 0
+Spearman = n/a
+95% CI = n/a (need 8+ answers)
+MAE = n/a
+correctness correlation = n/a (n=0)
+depth correlation = n/a (n=0)
+completeness correlation = n/a (n=0)
+communication correlation = n/a (n=0)
+
+Table 5.2
+raters = 0
+rated answers = 0
+rated by 2+ = 0
+mean Spearman across pairs = n/a
+weighted kappa = n/a
+
+Table 5.3
+missing evidence_out/stability.json: run stabilityTest.js
+
+Table 5.4
+missing evidence_out/ablation.json: run ablation.js
+
+Table 5.5 (latest completed session)
+| 1 | databases | 2 | -0.533 | 0.00 | -0.704 | 0.756 |
+| 2 | nodejs | 2 | -0.746 | 0.00 | -0.878 | 0.711 |
+| 3 | api-design | 2 | -0.746 | 0.00 | -0.878 | 0.711 |
+
+Table 5.9 (LLM-scored answers, ms)
+no latency data: run new assessments after adding latencyMs

@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   PanelLeft,
+  ShieldCheck,
   Sparkles,
   Target,
   Upload,
@@ -33,7 +34,9 @@ const navItems = [
 const routeMatchers = {
   '/dashboard': (path) => path === '/dashboard',
   '/new-interview': (path) =>
-    path === '/new-interview' || path.startsWith('/interview/') || path.startsWith('/evaluation/'),
+    path === '/new-interview' ||
+    path.startsWith('/interview/') ||
+    path.startsWith('/evaluation/'),
   '/assessment': (path) => path === '/assessment',
   '/upload': (path) => path === '/upload' || path === '/resumes',
   '/analysis': (path) => path === '/analysis',
@@ -42,6 +45,7 @@ const routeMatchers = {
   '/learn': (path) => path === '/learn' || path === '/dsa',
   '/reports': (path) => path === '/reports' || path === '/progress',
   '/profile': (path) => path === '/profile',
+  '/admin': (path) => path === '/admin',
 };
 
 const Sidebar = ({ sidebarOpen, onClose }) => {
@@ -50,6 +54,12 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
   const clearAllSessionData = useAppStore((state) => state.clearAllSessionData);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  // Admin-specific navigation
+  const isAdmin = (sessionUser || user)?.role === 'admin';
+  const items = isAdmin
+    ? [...navItems, { label: 'Admin', to: '/admin', icon: ShieldCheck }]
+    : navItems;
 
   const handleLogout = async () => {
     try {
@@ -65,6 +75,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('user');
+
       try {
         sessionStorage.clear();
       } catch (e) {}
@@ -75,6 +86,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
 
   const itemClass = (to) => {
     const isActive = routeMatchers[to]?.(pathname) || false;
+
     return `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
       isActive
         ? 'bg-indigo-50 text-indigo-700 font-semibold'
@@ -102,14 +114,22 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
           <div className="rounded-lg bg-gradient-to-br from-indigo-600 to-cyan-600 p-2 text-white">
             <PanelLeft className="h-4 w-4" />
           </div>
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-600">Main Navigation</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
+            Main Navigation
+          </p>
         </div>
 
         <nav className="space-y-1 px-4 py-4">
-          {navItems.map((item) => {
+          {items.map((item) => {
             const Icon = item.icon;
+
             return (
-              <Link key={item.label} to={item.to} className={itemClass(item.to)} onClick={onClose}>
+              <Link
+                key={item.label}
+                to={item.to}
+                className={itemClass(item.to)}
+                onClick={onClose}
+              >
                 <Icon className="h-4 w-4" />
                 <span>{item.label}</span>
               </Link>
@@ -124,6 +144,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
               {sessionUser?.email || user?.email || 'User'}
             </p>
           </div>
+
           <button
             type="button"
             onClick={handleLogout}
