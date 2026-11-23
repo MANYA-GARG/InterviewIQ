@@ -23,6 +23,9 @@ import coachRoutes from "./src/routes/coach.routes.js";
 import assessmentRoutes from "./src/routes/assessment.routes.js";
 import evidenceRoutes from "./src/routes/evidence.routes.js";
 import adminRoutes from "./src/routes/admin.routes.js";
+import adminDashboardRoutes from "./src/routes/adminDashboard.routes.js";
+import platformSettingsRoutes from './src/routes/platformSettings.routes.js';
+import aiMonitoringRoutes from './src/routes/aiMonitoring.routes.js';
 
 
 const warnIfUnset = (label, value) => {
@@ -88,7 +91,7 @@ const corsOptions = {
     }
   },
   credentials: true, // Allow cookies and authorization headers
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+ methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   maxAge: 86400 // Preflight cache for 24 hours
 };
@@ -115,6 +118,9 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/evidence", evidenceRoutes);
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin-dashboard", adminDashboardRoutes);
+app.use('/api/platform-settings', platformSettingsRoutes);
+app.use('/api/ai-monitoring', aiMonitoringRoutes);
 
 // Mount test routes ONLY in development to avoid accidental exposure
 if (process.env.NODE_ENV === 'development') {

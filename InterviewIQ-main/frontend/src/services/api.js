@@ -303,3 +303,7 @@ export const adminService = {
   remove: async (id) => normalize((await api.delete(`/admin/users/${id}`)).data),
   exportCsv: async () => (await api.get('/admin/users/export', { responseType: 'blob' })).data,
 };
+export const adminDashboardService = {
+  getOverview: async () =>
+    normalize((await api.get('/admin-dashboard/overview')).data),
+};

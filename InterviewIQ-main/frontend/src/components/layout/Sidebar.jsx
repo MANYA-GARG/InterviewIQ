@@ -1,3 +1,4 @@
+
 import { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -14,6 +15,8 @@ import {
   Target,
   Upload,
   User,
+  Settings,
+  Activity,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppStore } from '../../store/appStore';
@@ -46,20 +49,31 @@ const routeMatchers = {
   '/reports': (path) => path === '/reports' || path === '/progress',
   '/profile': (path) => path === '/profile',
   '/admin': (path) => path === '/admin',
+  '/admin/overview': (path) => path === '/admin/overview',
+  '/admin/settings': (path) => path === '/admin/settings',
+  '/admin/ai-monitoring': (path) => path === '/admin/ai-monitoring',
 };
 
 const Sidebar = ({ sidebarOpen, onClose }) => {
   const { user, logout } = useAuth();
   const sessionUser = useAppStore((state) => state.session.user);
-  const clearAllSessionData = useAppStore((state) => state.clearAllSessionData);
+  const clearAllSessionData = useAppStore(
+    (state) => state.clearAllSessionData
+  );
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  // Admin-specific navigation
   const isAdmin = (sessionUser || user)?.role === 'admin';
-  const items = isAdmin
-    ? [...navItems, { label: 'Admin', to: '/admin', icon: ShieldCheck }]
-    : navItems;
+
+  const adminNavItems = [
+    { label: 'Admin Overview', to: '/admin/overview', icon: BarChart3 },
+    { label: 'Candidate Management', to: '/admin', icon: ShieldCheck },
+    { label: 'Platform Settings', to: '/admin/settings', icon: Settings },
+    { label: 'AI Monitoring', to: '/admin/ai-monitoring', icon: Activity },
+  ];
+
+  const items = isAdmin ? [...navItems, ...adminNavItems] : navItems;
 
   const handleLogout = async () => {
     try {
@@ -114,6 +128,7 @@ const Sidebar = ({ sidebarOpen, onClose }) => {
           <div className="rounded-lg bg-gradient-to-br from-indigo-600 to-cyan-600 p-2 text-white">
             <PanelLeft className="h-4 w-4" />
           </div>
+
           <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
             Main Navigation
           </p>
