@@ -25,7 +25,7 @@ const normalizeLoginPayload = (payload) => {
 };
 
 const inputClass =
-  'block w-full rounded-xl border border-slate-600/70 bg-slate-900/70 py-3 pl-11 pr-3 text-[15px] text-white placeholder:text-slate-500 transition focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/25';
+  'block w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-3 text-[15px] text-slate-900 placeholder:text-slate-400 transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/20';
 
 const Spinner = () => (
   <svg className="-ml-1 mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
@@ -145,8 +145,8 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
   };
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/30 backdrop-blur sm:p-6">
-      <div role="tablist" aria-label="Sign in or create an account" className="grid grid-cols-2 rounded-xl bg-slate-900/80 p-1">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl shadow-indigo-100/70 sm:p-6">
+      <div role="tablist" aria-label="Sign in or create an account" className="grid grid-cols-2 rounded-xl bg-slate-100 p-1">
         {[
           { id: 'login', label: 'Sign in' },
           { id: 'register', label: 'Create account' },
@@ -157,8 +157,8 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
             role="tab"
             aria-selected={mode === t.id}
             onClick={() => onModeChange(t.id)}
-            className={`rounded-lg px-3 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-              mode === t.id ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-white'
+            className={`rounded-lg px-3 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+              mode === t.id ? 'bg-indigo-600 text-white shadow' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             {t.label}
@@ -169,11 +169,11 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
       <form onSubmit={handleSubmit} className="mt-5 space-y-4">
         {!isLogin ? (
           <div>
-            <label htmlFor="auth-name" className="mb-1.5 block text-sm font-semibold text-slate-200">
+            <label htmlFor="auth-name" className="mb-1.5 block text-sm font-semibold text-slate-800">
               Full name
             </label>
             <div className="relative">
-              <User className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+              <User className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
               <input
                 id="auth-name"
                 type="text"
@@ -190,11 +190,11 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
         ) : null}
 
         <div>
-          <label htmlFor="auth-email" className="mb-1.5 block text-sm font-semibold text-slate-200">
+          <label htmlFor="auth-email" className="mb-1.5 block text-sm font-semibold text-slate-800">
             Email
           </label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+            <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
             <input
               id="auth-email"
               type="email"
@@ -211,20 +211,20 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
 
         <div>
           <div className="mb-1.5 flex items-center justify-between">
-            <label htmlFor="auth-password" className="block text-sm font-semibold text-slate-200">
+            <label htmlFor="auth-password" className="block text-sm font-semibold text-slate-800">
               Password
             </label>
             {isLogin ? (
               <Link
                 to="/forgot-password"
-                className="text-sm font-semibold text-indigo-300 hover:text-indigo-200 focus:outline-none focus-visible:underline"
+                className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus:outline-none focus-visible:underline"
               >
                 Forgot password?
               </Link>
             ) : null}
           </div>
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+            <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
             <input
               id="auth-password"
               type={showPassword ? 'text' : 'password'}
@@ -241,7 +241,7 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
               type="button"
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 transition hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+              className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 transition hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
@@ -249,7 +249,7 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
         </div>
 
         {errorMessage ? (
-          <div role="alert" className="flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-3 text-sm text-rose-200">
+          <div role="alert" className="flex items-start gap-2.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-sm text-rose-700">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
             <span>{errorMessage}</span>
           </div>
@@ -258,7 +258,7 @@ const EmailAuthForm = ({ mode, onModeChange, externalError = '' }) => {
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-3 text-[15px] font-semibold text-white shadow-lg shadow-indigo-900/40 transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400/40 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-3 text-[15px] font-semibold text-white shadow-sm shadow-indigo-600/20 transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? (
             <>

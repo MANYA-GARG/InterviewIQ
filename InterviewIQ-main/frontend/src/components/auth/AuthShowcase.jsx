@@ -40,8 +40,8 @@ const LiveCard = () => (
       <span className="aq-dot" /> Live interview · Q3 of 8
     </div>
     <p className="aq-card-title">Walk me through a time you debugged a production issue.</p>
-    <Bar label="Answer clarity" value={86} color="#a5b4fc" />
-    <Bar label="Relevance to role" value={91} color="#6ee7b7" />
+    <Bar label="Answer clarity" value={86} color="#6366f1" />
+    <Bar label="Relevance to role" value={91} color="#10b981" />
   </>
 );
 
@@ -63,11 +63,11 @@ const FeedbackCard = () => (
   <>
     <div className="aq-card-head">Answer feedback</div>
     <div className="aq-line">
-      <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#6ee7b7' }} />
+      <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#10b981' }} />
       Clear structure and technical depth.
     </div>
     <div className="aq-line">
-      <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#fcd34d' }} />
+      <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#f59e0b' }} />
       Add a measurable result to close.
     </div>
   </>
@@ -81,7 +81,7 @@ const ProgressCard = () => (
     </div>
     <div className="aq-spark">
       {[38, 52, 46, 68, 84].map((h, i) => (
-        <i key={i} style={{ height: `${h}%`, background: i === 4 ? '#a5b4fc' : 'rgba(255,255,255,.3)' }} />
+        <i key={i} style={{ height: `${h}%`, background: i === 4 ? '#6366f1' : '#cbd5e1' }} />
       ))}
     </div>
   </>
@@ -104,7 +104,7 @@ const ProctorCard = () => (
     <div className="aq-card-head">Real-time proctoring</div>
     {['Camera connected', 'One face in frame', 'Tab focus stable'].map((t) => (
       <div className="aq-line" key={t}>
-        <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#6ee7b7' }} />
+        <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#10b981' }} />
         {t}
       </div>
     ))}
@@ -162,11 +162,11 @@ const CSS = `
 .aq-face { position: absolute; inset: 0; box-sizing: border-box; padding: 18px; border-radius: 28px; color: #fff;
   display: flex; flex-direction: column; justify-content: space-between;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  background: linear-gradient(150deg, rgba(165,180,252,.34) 0%, rgba(99,102,241,.16) 42%, rgba(15,23,42,.62) 100%);
-  border: 1px solid rgba(199,210,254,.5);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), inset 0 0 34px rgba(129,140,248,.26); }
+  background: linear-gradient(145deg, rgba(99,102,241,.94) 0%, rgba(37,99,235,.88) 52%, rgba(8,145,178,.9) 100%);
+  border: 1px solid rgba(255,255,255,.65);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), inset 0 0 30px rgba(255,255,255,.24), 0 18px 36px rgba(79,70,229,.28); }
 .aq-face::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(120deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 32%); }
+  background: linear-gradient(120deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 38%); }
 .aq-front  { transform: translateZ(100px); }
 .aq-right  { transform: rotateY(90deg)  translateZ(100px); }
 .aq-back   { transform: rotateY(180deg) translateZ(100px); }
@@ -175,25 +175,25 @@ const CSS = `
 .aq-bottom { transform: rotateX(-90deg) translateZ(100px); }
 .aq-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
   background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); }
-.aq-big { font-size: 33px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; text-shadow: 0 2px 14px rgba(15,23,42,.6); }
-.aq-lbl { margin-top: 5px; font-size: 13px; font-weight: 600; color: rgba(224,231,255,.92); }
+.aq-big { font-size: 33px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; text-shadow: 0 2px 12px rgba(30,27,75,.35); }
+.aq-lbl { margin-top: 5px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.92); }
 
 .aq-core { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; transform-style: preserve-3d; }
-.aq-core i { position: absolute; inset: 0; border-radius: 12px; background: rgba(99,102,241,.42); box-shadow: 0 0 34px rgba(99,102,241,.9); }
+.aq-core i { position: absolute; inset: 0; border-radius: 12px; background: rgba(255,255,255,.32); box-shadow: 0 0 34px rgba(255,255,255,.85); }
 .aq-core i:nth-child(1) { transform: translateZ(30px); }
 .aq-core i:nth-child(2) { transform: rotateY(90deg) translateZ(30px); }
 .aq-core i:nth-child(3) { transform: rotateX(90deg) translateZ(30px); }
 
 .aq-floor { position: absolute; left: ${STAGE_W / 2 - 150}px; top: 340px; width: 300px; height: 58px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(2,6,23,.7), rgba(2,6,23,0)); }
+  background: radial-gradient(closest-side, rgba(79,70,229,.30), rgba(79,70,229,0)); }
 .aq-ring { position: absolute; left: ${STAGE_W / 2 - 125}px; top: 350px; width: 250px; height: 42px; border-radius: 50%;
-  border: 1px solid rgba(129,140,248,.34); box-shadow: 0 0 26px rgba(99,102,241,.28); }
+  border: 1px solid rgba(99,102,241,.30); box-shadow: 0 0 26px rgba(99,102,241,.22); }
 
 /* pop-out cards */
-.aq-pop { position: absolute; width: 214px; box-sizing: border-box; padding: 14px; border-radius: 16px; color: #fff;
-  background: linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
-  border: 1px solid rgba(199,210,254,.34); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 18px 40px rgba(2,6,23,.45);
+.aq-pop { position: absolute; width: 214px; box-sizing: border-box; padding: 14px; border-radius: 16px; color: #0f172a;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(148,163,184,.35); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px rgba(79,70,229,.18);
   opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.42); transition: opacity .35s ease, transform .6s cubic-bezier(.2,.9,.3,1.15); pointer-events: none; }
 .aq-pop[data-on='true'] { opacity: 1; transform: none; }
 .aq-tl { left: 0; top: 4px; --dx: 174px; --dy: 154px; }
@@ -201,33 +201,33 @@ const CSS = `
 .aq-bl { left: 0; bottom: 4px; --dx: 174px; --dy: -160px; }
 .aq-br { right: 0; bottom: 4px; --dx: -174px; --dy: -160px; }
 
-.aq-aside { position: absolute; top: 196px; width: 150px; padding: 9px 12px; border-radius: 12px; font-size: 12px; line-height: 1.35; color: rgba(224,231,255,.95);
-  background: rgba(255,255,255,.08); border: 1px solid rgba(199,210,254,.26); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+.aq-aside { position: absolute; top: 196px; width: 150px; padding: 9px 12px; border-radius: 12px; font-size: 12px; line-height: 1.35; color: #475569;
+  background: rgba(255,255,255,.9); border: 1px solid rgba(148,163,184,.35); box-shadow: 0 10px 24px rgba(79,70,229,.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   opacity: 0; transition: opacity .4s ease .12s, transform .5s ease .12s; }
-.aq-aside b { color: #fff; font-weight: 700; }
+.aq-aside b { color: #0f172a; font-weight: 700; }
 .aq-aside-l { left: 0; transform: translateX(-14px); }
 .aq-aside-r { right: 0; transform: translateX(14px); }
 .aq-aside[data-on='true'] { opacity: 1; transform: none; }
 
-.aq-card-head { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; color: rgba(224,231,255,.92); }
+.aq-card-head { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; color: #64748b; }
 .aq-dot { width: 7px; height: 7px; border-radius: 99px; background: #fb7185; box-shadow: 0 0 0 3px rgba(251,113,133,.25); }
-.aq-card-title { margin: 8px 0 4px; font-size: 12.5px; font-weight: 700; line-height: 1.3; }
-.aq-card-sub { margin: 8px 0 0; font-size: 12px; line-height: 1.35; color: rgba(224,231,255,.85); }
+.aq-card-title { margin: 8px 0 4px; font-size: 12.5px; font-weight: 700; line-height: 1.3; color: #0f172a; }
+.aq-card-sub { margin: 8px 0 0; font-size: 12px; line-height: 1.35; color: #475569; }
 .aq-bar { margin-top: 8px; }
-.aq-bar-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 11px; color: rgba(224,231,255,.9); }
-.aq-track { height: 5px; border-radius: 99px; background: rgba(255,255,255,.18); overflow: hidden; }
+.aq-bar-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 11px; color: #475569; }
+.aq-track { height: 5px; border-radius: 99px; background: #e2e8f0; overflow: hidden; }
 .aq-fill { height: 100%; border-radius: 99px; }
-.aq-score { margin-top: 8px; font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
-.aq-score small { font-size: 12px; font-weight: 600; letter-spacing: 0; color: rgba(224,231,255,.8); }
+.aq-score { margin-top: 8px; font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -.03em; color: #0f172a; }
+.aq-score small { font-size: 12px; font-weight: 600; letter-spacing: 0; color: #64748b; }
 .aq-chips { margin-top: 10px; }
-.aq-chip { display: inline-block; margin: 0 5px 5px 0; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.24); }
-.aq-ok { background: rgba(52,211,153,.22); border-color: rgba(52,211,153,.5); }
-.aq-miss { background: rgba(251,191,36,.2); border-color: rgba(251,191,36,.5); }
-.aq-line { display: flex; gap: 7px; margin-top: 9px; font-size: 12px; line-height: 1.35; }
+.aq-chip { display: inline-block; margin: 0 5px 5px 0; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; background: #f1f5f9; border: 1px solid #e2e8f0; color: #334155; }
+.aq-ok { background: #ecfdf5; border-color: #10b981; color: #047857; }
+.aq-miss { background: #fffbeb; border-color: #f59e0b; color: #b45309; }
+.aq-line { display: flex; gap: 7px; margin-top: 9px; font-size: 12px; line-height: 1.35; color: #334155; }
 .aq-spark { display: flex; align-items: flex-end; gap: 6px; height: 34px; margin-top: 10px; }
 .aq-spark i { flex: 1; border-radius: 4px; }
 .aq-wave { display: flex; align-items: center; gap: 4px; height: 38px; margin-top: 10px; }
-.aq-wave i { flex: 1; height: 100%; border-radius: 99px; background: #a5b4fc; transform-origin: center; animation: aq-wave 1.1s ease-in-out infinite; }
+.aq-wave i { flex: 1; height: 100%; border-radius: 99px; background: #6366f1; transform-origin: center; animation: aq-wave 1.1s ease-in-out infinite; }
 @keyframes aq-wave { 0%, 100% { transform: scaleY(.22); } 50% { transform: scaleY(1); } }
 
 @media (prefers-reduced-motion: reduce) {
