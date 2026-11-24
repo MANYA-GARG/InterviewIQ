@@ -26,6 +26,8 @@ import adminRoutes from "./src/routes/admin.routes.js";
 import adminDashboardRoutes from "./src/routes/adminDashboard.routes.js";
 import platformSettingsRoutes from './src/routes/platformSettings.routes.js';
 import aiMonitoringRoutes from './src/routes/aiMonitoring.routes.js';
+import aiAdminCopilotRoutes from './src/routes/aiAdminCopilot.routes.js';
+
 
 
 const warnIfUnset = (label, value) => {
@@ -121,6 +123,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/admin-dashboard", adminDashboardRoutes);
 app.use('/api/platform-settings', platformSettingsRoutes);
 app.use('/api/ai-monitoring', aiMonitoringRoutes);
+app.use('/api/ai-admin-copilot', aiAdminCopilotRoutes);
+
 
 // Mount test routes ONLY in development to avoid accidental exposure
 if (process.env.NODE_ENV === 'development') {
